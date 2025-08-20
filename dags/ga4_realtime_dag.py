@@ -5,10 +5,6 @@ from datetime import datetime, timedelta
 import os
 import logging
 from airflow.utils.dates import days_ago
-from dotenv import load_dotenv
-
-# Load environment variables from .env file
-load_dotenv()
 
 
 from scripts.ga4_client import GA4RealtimeClient
