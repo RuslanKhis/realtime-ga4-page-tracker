@@ -5,3 +5,8 @@ You need to run the command below from the main folder of this repo to make the 
 ```bash
 chmod +x scripts/*.sh
 ```
+
+Then, you can run the following command to start the application:
+```bash
+./scripts/start-project.sh
+```
