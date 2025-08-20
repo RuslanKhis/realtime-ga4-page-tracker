@@ -27,7 +27,68 @@ The pipeline runs in a Docker container, with Airflow handling orchestration. Po
 
 The most important components are the GA4 client for API interactions, a PostgreSQL handler for database operations, and an Airflow DAG that coordinates the entire workflow. I have introduced data freshness control via automated cleanup. The solution also creates aggregated views for dashboard consumption, enabling marketers to monitor specific page performance during critical events like product launches (e.g., yet another iPhone launch).
 
-## How to start using it
+## Setup instructions
+### Part I. Cloning Repo
+
+
+First, I recommend that you clone this repository to your local machine:
+
+```bash
+git clone https://github.com/RuslanKhis/realtime-ga4-page-tracker.git
+cd realtime-ga4-page-tracker
+```
+
+Please also create secrets folder where we expect to store our service account keys:
+
+```bash
+touch secrets
+```
+
+### Part II. Getting keys to GA4 
+
+#### Check prerequisites
+Before we can even start getting data from GA4 programmatically, we need to, so to speak, build a funnel to use (enable the API) and get keys (API Keys). To make sure that you can perform the necessary actions as outlined below, please check that you have the following:
+
+- **Google Cloud Project (GCP):** A GCP project provides the framework to access Google’s cloud services. You will need an active GCP project to create the necessary resources for connecting to the GA4 API. Users with basic IAM permissions (like the default “Basic Editor” role) can create service accounts.
+- **Access to a Google Analytics 4 Property (Viewer or Editor permissions):** You must be able to add a service account’s email address to the GA4 Property settings and grant it the necessary permissions (“Viewer” or “Editor”).
+
+#### GCP Setup
+Ok, with the prerequisites set up, please proceed to do the following:
+
+Enable **Google Analytics Data API**:
+
+1. **Project Dashboard:** Go to your Google Cloud Project dashboard.
+2. **APIs & Services:** Navigate to the "APIs & Services" section.
+3. **Search and Enable:** Search for "Google Analytics Data API" and click "Enable".
+
+Create **Service Account**:
+
+1. **APIs & Services -> Credentials:** Go back to the "Credentials" subsection within "APIs & Services" in your GCP project dashboard.
+
+2. **+ Create Credentials:** Click on "+ Create Credentials" and choose "Service Account".
+
+3. **Service Account Details:** Fill in a descriptive name for your service account (e.g., "ga4-reporting-api"). You can also add a brief description if desired. Click on "Create and Continue."
+
+4. **Other Details:** You can leave "Grant this Service Account Access to Project" and "Grant Users Access to this Service Account" empty and just proced to button "Done."
+
+5. **Download JSON Key:** In your GCP Project, navigate to the "IAM & Admin" section and then select "Service Accounts". Locate the service account you just created (e.g., "ga4-reporting-api"). Click on the "Keys" tab within your service account's details. Click on the "Add Key" button, choose "Create New Key", and select the "JSON" format. The JSON key file will be downloaded to your local computer. Name your file `ga4SAK.json` and put it in the `secrets` folder of our solution.
+
+
+#### Google Analytics Setup
+
+Ok, so now we have built the funnel to get data from GA4, we need to give it keys to access our GA4 Property:
+
+Grant **Service Account** Access to **GA4 Property**:
+
+1. **Find Your Service Account Email:** Open the JSON key file you downloaded earlier when creating your service account in GCP.  Locate the "client_email" field and copy the email address. This is the unique identifier for your service account.
+2. **Navigate to Your GA4 Property:** Go to the Google Analytics platform and access the specific GA4 property where you want to extract data.
+3. **Admin Settings:** Within your GA4 property, navigate to the "Admin" settings.
+4. **Property Access Management:** Look for a section labeled "Property Access Management". This is where you'll add new users.
+5. **+ Add Member:** Click the button labeled "+ Add Member" to add a new member (your service account).
+6. **Paste Email and Set Permissions:** Paste the service account's email address you copied earlier.  Since you just need to read data, grant the "Viewer" permission level. 
+7. **Save:** Click "Save" to finalize granting the necessary permissions to your service account.
+
+In addition, please make sure to go to `Admin` -> `Property` -> `Property Details` and save the `PROPERTY ID` provided in the top right corner. We will need it later to specify to the GA4 Data API for which property we want to get data.
 
 
 
