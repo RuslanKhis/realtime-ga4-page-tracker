@@ -5,7 +5,10 @@ from datetime import datetime, timedelta
 import os
 import logging
 from airflow.utils.dates import days_ago
+from dotenv import load_dotenv
 
+# Load environment variables from .env file
+load_dotenv()
 
 
 from scripts.ga4_client import GA4RealtimeClient
@@ -14,7 +17,7 @@ from scripts.postgres_handler import PostgreSQLHandler
 # ========================
 # Configuration
 # ========================
-GA4_PROPERTY_ID = "NNNNNNNNNNN"  # Replace with your actual property ID
+GA4_PROPERTY_ID = os.getenv("GA4_PROPERTY_ID")  # Path to your GA4 property ID
 CREDENTIALS_PATH = "secrets/ga4SAK.json"  # Path to your service account key file
 
 # Default arguments for all tasks
