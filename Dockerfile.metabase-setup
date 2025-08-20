@@ -1,6 +1,0 @@
-FROM curlimages/curl:latest
-
-USER root
-RUN apk add --no-cache bash jq
-
-USER curl

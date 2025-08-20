@@ -10,3 +10,6 @@ webserver_config.py
 airflow.cfg
 airflow.db
 /secrets/ga4SAK.json
+include/data/metabase/metabase.db/metabase.db.mv.db
+.gitignore
+include/data/metabase/metabase.db/metabase.db.trace.db
