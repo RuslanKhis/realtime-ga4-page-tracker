@@ -43,6 +43,11 @@ Please also create secrets folder where we expect to store our service account k
 ```bash
 touch secrets
 ```
+Let's also create a .env file where we will store our GA4 Property ID:
+
+```bash
+touch .env
+```
 
 ### Part II. Getting keys to GA4 
 
@@ -88,17 +93,37 @@ Grant **Service Account** Access to **GA4 Property**:
 6. **Paste Email and Set Permissions:** Paste the service account's email address you copied earlier.  Since you just need to read data, grant the "Viewer" permission level. 
 7. **Save:** Click "Save" to finalize granting the necessary permissions to your service account.
 
-In addition, please make sure to go to `Admin` -> `Property` -> `Property Details` and save the `PROPERTY ID` provided in the top right corner. We will need it later to specify to the GA4 Data API for which property we want to get data.
+In addition, please make sure to go to `Admin` -> `Property` -> `Property Details` and save the `PROPERTY ID` provided in the top right corner. You will need to add it to the .env file we created previously in the format:
 
+```yaml
+GA4_PROPERTY_ID=#PUTIDHERE
+```
+### Part III. Finishing Touches
 
+#### Install Docker
+You can follow the instructions on this link to do [that](https://docs.docker.com/desktop/setup/install/mac-install/).
+
+#### Install Airflow via Astro 
+You can install the CLI on Mac via:
+```bash
+brew install astro
+```
+
+#### Making scripts executable
+I configured two scripts, start-project.sh and setup-metabase.sh, to make it easier to start the application. Before we can use them, we need to make them executable.
 
 You need to run the command below from the main folder of this repo to make the main scripts executable.
 ```bash
 chmod +x scripts/*.sh
 ```
 
-Then, you can run the following command to start the application:
+### Part IV. How to use
+Now that we have performed all the steps, we can easily run the solution via:
+
 ```bash
 ./scripts/start-project.sh
 ```
 
+It will prompt two windows in your browser: one for the Apache Airflow UI at `http://localhost:8080`, where you can log in with username `admin` and password `admin`; the other for Metabase at `http://localhost:3000`, where you can log in with username `admin@example.com` and password `AdminPass123!`. I recommend that you turn on the Apache Airflow DAG, then make yourself a coffee or chat with friends. After about 10 minutes, you should have data in your PostgreSQL instance. Then, open Metabase. In the `Databases` section, you should see the `GA4 Analytics` database.
+
+![Metabase UI Databases](images/Metabase%20UI%20Databases.png)
