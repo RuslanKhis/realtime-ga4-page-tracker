@@ -138,9 +138,25 @@ If you open it, inside you will see quite many tables and most of the are not re
 ![Metabase find our table](images/Metabase%20find%20our%20table.png)
 ![Metabase Specific Table Data](images/Metabase%20Specific%20Table%20Data.png)
 
+Here we might encounter a problem where some tables are empty, i.e., there is no data inside them. The first thing I would check is whether your site actually has relevant traffic. If there are no users on the website, there will be no data to fetch and thus nothing to record in the tables. If this is not the case, it might make sense to test-run the DAG and check the logs using:
+
+```bash
+astro dev run dags test ga4_realtime_pipeline      
+```
+
+If you find a flaw in the way I fetch data, please let me know via raising an issue via GitHub so that everyone can benefit from the fix.
+
+If we assume that everything works properly and you have data in your table, the next thing you can do is create a visualization using Metabase. I recommend that you watch the following [Metabase tutorial](https://www.youtube.com/watch?v=7esMaFvKGqo&list=PLzmftu0Z5MYGY0aA3rgIGwSCifECMeuG6) to get up to speed. One idea is to create a visualization that shows the sum of active users over time, using the 'Extracted At:' field for the time axis. Another idea might be to show the number of pageviews over time for a specific page.
+
+If you create a dashboard that you think everyone would benefit from, feel free to share it and serialize it so I can add it to the current solution. This way, it will be prebuilt every time someone uses this solution.
+
 
 #### How to Stop the Application
 If you wish to stop application simply run:
 ```bash
 astro dev stop
 ```
+
+#### Other Considerations
+Please note that currently we cannot get the number of conversions per specific page. I usually recommend that my clients create a GA4 tag with an event specific to the page they are interested in. For example, if you are launching the iPhone 17 in September 2025, it might make sense to create an event called `iPhone17_preOrder` or `iPhone_preOrder`. In Google Tag Manager, you can configure this tag to fire only on pages dedicated to preordering the iPhone.
+
