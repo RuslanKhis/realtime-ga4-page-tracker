@@ -118,12 +118,25 @@ chmod +x scripts/*.sh
 ```
 
 ### Part IV. How to use
+#### How to Start the Application
 Now that we have performed all the steps, we can easily run the solution via:
 
 ```bash
 ./scripts/start-project.sh
 ```
 
-It will prompt two windows in your browser: one for the Apache Airflow UI at `http://localhost:8080`, where you can log in with username `admin` and password `admin`; the other for Metabase at `http://localhost:3000`, where you can log in with username `admin@example.com` and password `AdminPass123!`. I recommend that you turn on the Apache Airflow DAG, then make yourself a coffee or chat with friends. After about 10 minutes, you should have data in your PostgreSQL instance. Then, open Metabase. In the `Databases` section, you should see the `GA4 Analytics` database.
+It will prompt two windows in your browser: one for the Apache Airflow UI at `http://localhost:8080`, where you can log in with username `admin` and password `admin`; the other for Metabase at `http://localhost:3000`, where you can log in with username `admin@example.com` and password `AdminPass123!`. I recommend that you turn on the Apache Airflow DAG, then make yourself a coffee or chat with friends. After about 10 minutes, you should have data in your PostgreSQL instance. 
+
+![Airflow UI Toggle On](images/AirFlow%20Toggle%20On.png)
+
+Then, open Metabase. In the `Databases` section, you should see the `GA4 Analytics` database.
 
 ![Metabase UI Databases](images/Metabase%20UI%20Databases.png)
+
+If you open it, inside you can see 
+
+#### How to Stop the Application
+If you wish to stop application simply run:
+```bash
+astro dev stop
+```
