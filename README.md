@@ -133,7 +133,11 @@ Then, open Metabase. In the `Databases` section, you should see the `GA4 Analyti
 
 ![Metabase UI Databases](images/Metabase%20UI%20Databases.png)
 
-If you open it, inside you can see 
+If you open it, inside you will see quite many tables and most of the are not related to GA4 Data but rather to Apache AirFlow setup itself. I decided to go put GA4 tables inside of the same PostgreSQL instance as Apache Airflow uses because it is easier this way. All, we need to remember here that we have created the following 5 tables: 1) active_users_by_page, 2) events_by_page, 3) conversions, 4) traffic_sources, 5) overview, and 2 views: 6) hourly_metrics, 7) realtime_dashboard.
+
+![Metabase find our table](images/Metabase%20find%20our%20table.png)
+![Metabase Specific Table Data](images/Metabase%20Specific%20Table%20Data.png)
+
 
 #### How to Stop the Application
 If you wish to stop application simply run:
